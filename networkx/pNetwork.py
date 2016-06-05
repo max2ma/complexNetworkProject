@@ -12,11 +12,13 @@ def main():
     fPath=opts[0][1]
     filename=os.path.basename(fPath)
     fDir=os.path.dirname(fPath)
-    sDir=os.path.join(fDir,filename+".fig")
+    sDir=os.path.join(fDir,"%s.fig"%filename)
     if not os.path.exists(sDir):
         os.mkdir(sDir)
     with open(fPath,'rb') as fh:
         G_analysis=nx.read_edgelist(fh)
+    gPath=os.path.join(sDir,"%s.graphml"%filename)
+    nx.write_graphml(G_analysis,gPath)
     num_nodes=nx.number_of_nodes(G_analysis)
 
     G_nodes=G_analysis.nodes()
